@@ -5,10 +5,10 @@ const app=express();
 
 const PORT=3002;
 
+app.use(express.json())
 connectToMongodb('mongodb://localhost:27017/short-url').then(()=>{
     console.log("mongodb connected succesfully")
 })
-
 
 
 app.use("/url",urlRoute);
