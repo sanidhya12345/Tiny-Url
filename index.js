@@ -1,6 +1,9 @@
+/** @format */
+
 const express = require("express");
 const urlRoute = require("./routes/url");
 const { connectToMongodb } = require("./connect");
+const staticRoute = require("./routes/staticRouter");
 const app = express();
 const URL = require("./models/url");
 const path = require("path");
@@ -17,11 +20,16 @@ app.use("/new", async (req, res) => {
 });
 
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+
 connectToMongodb("mongodb://localhost:27017/short-url").then(() => {
   console.log("mongodb connected succesfully");
 });
 
 app.use("/url", urlRoute);
+
+app.use("/", staticRoute);
 
 app.get("/:shortId", async (req, res) => {
   const shortId = req.params.shortId;

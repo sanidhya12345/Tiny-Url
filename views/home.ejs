@@ -8,12 +8,59 @@
 </head>
 
 <body>
-    <h1>Home Page from Server</h1>
-    <% urls.forEach(url=> { %>
+    <h1>Tiny URL</h1>
+
+    <% if (locals.id) { %>
+        <p>URL Generated : http://localhost:3002/url/ <%= id %>
+        </p>
+        <% } %>
+            <div>
+                <form method="POST" action="/url">
+                    <label for="">Enter the url to shorten</label>
+                    <input type="text" name="redirectURL" placeholder="https://example.com">
+                    <button type="submit">Generate</button>
+                </form>
+            </div>
+
+
+            <div>
+                <% if (locals.urls) { %>
+                    <table>
+                        <thead>
+                            <th>S.No</th>
+                            <th>Short Id</th>
+                            <th>Redirect Url</th>
+                            <th>clicks</th>
+                        </thead>
+                        <tbody>
+                            <% urls.forEach((url,index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= url.shortId %>
+                                    </td>
+                                    <td>
+                                        <%= url.redirectUrl %>
+                                    </td>
+                                    <td>
+                                        <%= url.visitHistory.length %>
+                                    </td>
+                                    <% }) %>
+                                </tr>
+
+                        </tbody>
+                    </table>
+                    <% } %>
+            </div>
+
+
+            <!-- <% urls.forEach(url=> { %>
         <li>
             <%= url.shortId %>
         </li>
-        <% }) %>
+        <% }) %> -->
 </body>
 
 </html>

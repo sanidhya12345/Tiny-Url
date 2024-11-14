@@ -1,3 +1,5 @@
+/** @format */
+
 const { nanoid } = require("nanoid");
 const URL = require("../models/url");
 
@@ -10,7 +12,10 @@ async function handleGenerateNewShortURL(req, res) {
     redirectUrl: body.url,
     visitHistory: {},
   });
-  return res.json({ id: shortId });
+  return res.render("home", {
+    id: shortId,
+  });
+  //return res.json({ id: shortId });
 }
 
 async function handleGetAnalytics(req, res) {
@@ -24,5 +29,5 @@ async function handleGetAnalytics(req, res) {
 
 module.exports = {
   handleGenerateNewShortURL,
-  handleGetAnalytics
+  handleGetAnalytics,
 };
